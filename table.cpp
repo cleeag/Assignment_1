@@ -14,7 +14,6 @@ Table::Table() {
 }
 
 Table::Table(const Table &another) {
-//    cout<<numEntries<<endl;
     numAttrs = another.numAttrs;
     numEntries = another.numEntries;
     attrs = new string[numEntries];

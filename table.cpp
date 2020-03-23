@@ -190,4 +190,26 @@ bool Table::deleteEntry(int index){
 }
 
 // TODO
-bool append(const Table &another);
+bool Table::append(const Table &another){
+    if(numAttrs != another.numAttrs)
+        return false;
+    else{
+        for (int i = 0; i < another.numAttrs; ++i) {
+            if (attrs[i] != another.attrs[i]) return false;
+        }
+    }
+
+    int new_numEntries = numEntries + another.numEntries;
+    string **new_entries = new string *[new_numEntries];
+    for (int i = 0; i < numEntries; ++i) {
+        for (int j = 0; j < numAttrs; ++j) {
+            new_entries[i][j] = entries[i][j];
+        }
+    }
+    for (int i = numEntries; i < new_numEntries; ++i) {
+        for (int j = 0; j < numAttrs; ++j) {
+            new_entries[i][j] = entries[i][j];
+        }
+    }
+    return true;
+}

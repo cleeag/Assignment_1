@@ -162,6 +162,7 @@ bool Table::deleteAttribute(int index) {
         }
         delete[] entries;
         entries = new_entries;
+        numEntries -= 1;
     }
     numAttrs -= 1;
     return true;
@@ -184,6 +185,11 @@ bool Table::deleteEntry(int index){
         }
     }
 
+    for (int i = 0; i < numEntries; ++i) {
+        delete[] entries[i];
+    }
+    delete[] entries;
+    entries = new_entries;
     numEntries -= 1;
     return true;
 }
@@ -210,5 +216,13 @@ bool Table::append(const Table &another){
             new_entries[i][j] = entries[i][j];
         }
     }
+
+    for (int i = 0; i < numEntries; ++i) {
+        delete[] entries[i];
+    }
+    delete[] entries;
+    numEntries = new_numEntries;
+    entries = new_entries;
+
     return true;
 }

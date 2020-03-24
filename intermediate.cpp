@@ -1,4 +1,5 @@
 #include <string>
+#include "iostream"
 #include "intermediate.h"
 #include "table.h"
 
@@ -49,34 +50,165 @@ Intermediate &Intermediate::where(const string &attr, enum compare mode, const s
             break;
         }
     }
-    if(att_index == -1) return *this;
+    if (att_index == -1)
+        return *this;
+    else {
+        EntryNode *current = head;
+        while (current != nullptr) {
+            if (mode == EQ) {
+                if (current->entry[att_index] != value) {
+                    current->prev->next = current->next;
+                    EntryNode *tmp = current;
+                    current = current->next;
+                    delete tmp;
+                }
+            } else {
+                if (!current->entry[att_index].find(value)) {
+                    current->prev->next = current->next;
+                    EntryNode *tmp = current;
+                    current = current->next;
+                    delete tmp;
+                }
+            }
+        }
+        return *this;
+    }
 
-    EntryNode* current = head;
-    while (current != nullptr){
-        if (mode == EQ){
-            if (current->entry[att_index] != value){
-                current->prev->next = current->next;
-                delete current;
+
+}
+
+// TODO
+Intermediate &Intermediate::orderBy(const string &attr, enum order order) {
+    int att_index = -1;
+    for (int i = 0; i < numAttrs; ++i) {
+        if (attrs[i] == attr) {
+            att_index = i;
+            break;
+        }
+    }
+    if (att_index == -1)
+        return *this;
+    else {
+        EntryNode *current = head;
+
+        bool flipped = true;
+        while (flipped) {
+            flipped = false;
+            while (current != nullptr) {
+                if (current->entry[att_index].compare(current->next->entry[att_index]) == 0) {
+                    current = current->next;
+                    continue;
+                }
+                if (order == ASCENDING) {
+                    if (current->entry[att_index].compare(current->next->entry[att_index]) > 0) {
+                        EntryNode *tmp = current->next->next;
+                        current->prev->next = current->next;
+                        current->next->next = current;
+                        current->next = tmp;
+                        flipped = true;
+                    }
+                } else if (order == DESCENDING) {
+                    if (current->entry[att_index].compare(current->next->entry[att_index]) < 0) {
+                        EntryNode *tmp = current->next->next;
+                        current->prev->next = current->next;
+                        current->next->next = current;
+                        current->next = tmp;
+                        flipped = true;
+                    }
+                }
+                current = current->next;
             }
         }
-        else{
-            if (!current->entry[att_index].find(value)){
-                current->prev->next = current->next;
-                delete current;
-            }
-        }
+        return *this;
+    }
+}
+
+// TODO
+Intermediate &Intermediate::limit(unsigned int limit) {
+    int length = 0;
+    EntryNode *len_counter = head;
+    while (len_counter->next != nullptr) {
+        len_counter = len_counter->next;
+        length += 1;
+    }
+    if (limit >= length) return *this;
+
+    int left_length = length;
+    EntryNode *current = tail;
+    while (left_length > limit) {
+        EntryNode *tmp = current->prev;
+        delete current;
+        current = tmp;
+        left_length -= 1;
     }
     return *this;
 }
 
 // TODO
-Intermediate &orderBy(const string &attr, enum order order);
+void Intermediate::update(const string &attr, const string &new_value) const {
+    int att_index = -1;
+    for (int i = 0; i < numAttrs; ++i) {
+        if (attrs[i] == attr) {
+            att_index = i;
+            break;
+        }
+    }
+    if (att_index != -1) {
+        EntryNode *current = head;
+        while (current->next != nullptr) {
+            current->entry[att_index] = new_value;
+            current = current->next;
+        }
+    }
+}
 
 // TODO
-Intermediate &limit(unsigned int limit);
+void Intermediate::select(const string *attrs, int numAttrs) const {
+    if (this->numAttrs == 0) return;
 
-// TODO
-void update(const string &attr, const string &new_value) const;
+    if (attrs == nullptr) {
+        numAttrs = this->numAttrs;
+        attrs = this->attrs;
+    }
 
-// TODO
-void select(const string *attrs = nullptr, int numAttrs = 0) const;
+    int attr_idx[numAttrs];
+    for (int i = 0; i < numAttrs; ++i) {
+        for (int j = 0; j < this->numAttrs; ++j) {
+            if (this->attrs[j] == attrs[i]) {
+                attr_idx[i] = j;
+            }
+        }
+    }
+//    find logest string in column
+    EntryNode *current = head;
+    int max_len_by_attr[numAttrs];
+    for (int i = 0; i < numAttrs; ++i) {
+        max_len_by_attr[i] = attrs[i].length();
+    }
+
+    while (current->next != nullptr) {
+        for (int i = 0; i < numAttrs; ++i) {
+            string tmp = current->entry[attr_idx[i]];
+            if (tmp.length() > max_len_by_attr[i]) max_len_by_attr[i] = tmp.length();
+            current = current->next;
+        }
+    }
+
+//    print it out
+    current = head;
+    for (int i = 0; i < numAttrs; ++i) {
+        string tmp = this->attrs[attr_idx[i]];
+        string tmp2 = _left_pad_until(tmp, max_len_by_attr[i]);
+        cout << " | " << tmp2;
+    }
+    cout << " | " << endl;
+    while (current->next != nullptr) {
+        for (int i = 0; i < numAttrs; ++i) {
+            string tmp = current->entry[attr_idx[i]];
+            string tmp2 = _left_pad_until(tmp, max_len_by_attr[i]);
+            cout << " | " << tmp2;
+        }
+        cout << " | " << endl;
+    }
+
+}

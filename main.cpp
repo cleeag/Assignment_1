@@ -58,7 +58,7 @@ _test_table()
 
 	Table *c = new Table {*b};
 	Table *d = new Table {*b};
-
+    b->print();
 	cout << "b->append(c)                   Should be true:  " << boolalpha << b->append(*c) << endl;
 
 	cout << endl;
@@ -78,10 +78,12 @@ _test_table()
 	cout << "d->deleteEntry(0)              Should be true:  " << boolalpha << d->deleteEntry(0) << endl;
 
 	cout << endl;
-
+    c->print();
 	cout << "Remove all attributes from c" << endl;
 	cout << "c->deleteAttribute(1)          Should be true:  " << boolalpha << c->deleteAttribute(1) << endl;
+    c->print();
 	cout << "c->deleteAttribute(0)          Should be true:  " << boolalpha << c->deleteAttribute(0) << endl;
+    c->print();
 
 	// Note: a, b, c and d are deleted here
 	delete a;

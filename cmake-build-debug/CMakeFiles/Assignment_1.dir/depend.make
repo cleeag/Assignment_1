@@ -3,6 +3,7 @@
 
 CMakeFiles/Assignment_1.dir/intermediate.cpp.o: ../intermediate.cpp
 CMakeFiles/Assignment_1.dir/intermediate.cpp.o: ../intermediate.h
+CMakeFiles/Assignment_1.dir/intermediate.cpp.o: ../table.h
 
 CMakeFiles/Assignment_1.dir/main.cpp.o: ../intermediate.h
 CMakeFiles/Assignment_1.dir/main.cpp.o: ../main.cpp

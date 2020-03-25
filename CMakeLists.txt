@@ -7,5 +7,5 @@ include_directories(.)
 
 add_executable(assignment_1
         intermediate.h
-        main.cpp
-        table.h table.cpp intermediate.cpp)
+#        main.cpp
+        table.h table.cpp intermediate.cpp test.cpp)

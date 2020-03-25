@@ -46,6 +46,15 @@ public:
 	// By declaring Intermediate as a friend class of Table, Intermediate can access the private members of Table
 	friend class Intermediate;
 
+    int getNumAttrs() const { return numAttrs; }
+
+    int getNumEntries() const { return numEntries; }
+
+    const string& getAttribute(int index) const { return attrs[index]; }
+
+    const string& getEntry(int entryIndex, int attrIndex) const { return entries[entryIndex][attrIndex]; }
+
+
 private:
 	// 1D array of attributes
 	// When there are no attributes, this must be set to nullptr

@@ -9,7 +9,7 @@ void print_list(EntryNode *p) {
     cout << endl;
     cout << "start printing..." << endl;
     while (p != nullptr) {
-        cout << p->entry[2] << endl;
+        cout << p->entry[0] << '\t' << p->entry[2] << endl;
         p = p->next;
     }
     cout << "done printing..." << endl;
@@ -86,7 +86,6 @@ Intermediate &Intermediate::where(const string &attr, enum compare mode, const s
                 }
             } else current = current->next;
         }
-        print_list(head);
         return *this;
     }
 
@@ -105,34 +104,47 @@ Intermediate &Intermediate::orderBy(const string &attr, enum order order) {
     if (att_index == -1)
         return *this;
     else {
-        EntryNode *current = head;
-
         bool flipped = true;
         while (flipped) {
             flipped = false;
-            while (current != nullptr) {
+            EntryNode *current = head;
+            while (current->next != nullptr) {
                 if (current->entry[att_index].compare(current->next->entry[att_index]) == 0) {
                     current = current->next;
                     continue;
                 }
-                if (order == ASCENDING) {
-                    if (current->entry[att_index].compare(current->next->entry[att_index]) > 0) {
+                // case when it's different
+                if ((order == ASCENDING and current->entry[att_index].compare(current->next->entry[att_index]) > 0) or
+                    (order == DESCENDING and current->entry[att_index].compare(current->next->entry[att_index]) < 0)) {
+                    if (current->prev == nullptr) {
+                        EntryNode *tmp = current->next->next;
+                        head = current->next;
+                        head->next = current;
+                        head->prev = nullptr;
+                        current->prev = head;
+                        current->next = tmp;
+                        tmp->prev = current;
+                        flipped = true;
+                    } else if (current->next->next == nullptr) {
+                        EntryNode *tmp = current->prev;
+                        tmp->next = current->next;
+                        current->next->prev = tmp;
+                        current->next->next = current;
+                        current->prev = current->next;
+                        current->next = nullptr;
+                        tail = current;
+                        flipped = true;
+                    } else {
                         EntryNode *tmp = current->next->next;
                         current->prev->next = current->next;
+                        current->next->prev = current->prev;
                         current->next->next = current;
+                        current->prev = current->next;
+                        tmp->prev = current;
                         current->next = tmp;
                         flipped = true;
                     }
-                } else if (order == DESCENDING) {
-                    if (current->entry[att_index].compare(current->next->entry[att_index]) < 0) {
-                        EntryNode *tmp = current->next->next;
-                        current->prev->next = current->next;
-                        current->next->next = current;
-                        current->next = tmp;
-                        flipped = true;
-                    }
-                }
-                current = current->next;
+                } else current = current->next;
             }
         }
         return *this;
@@ -172,7 +184,7 @@ void Intermediate::update(const string &attr, const string &new_value) const {
     }
     if (att_index != -1) {
         EntryNode *current = head;
-        while (current->next != nullptr) {
+        while (current != nullptr) {
             current->entry[att_index] = new_value;
             current = current->next;
         }
@@ -203,7 +215,7 @@ void Intermediate::select(const string *attrs, int numAttrs) const {
         max_len_by_attr[i] = attrs[i].length();
     }
 
-    while (current->next != nullptr) {
+    while (current != nullptr) {
         for (int i = 0; i < numAttrs; ++i) {
             string tmp = current->entry[attr_idx[i]];
             if (tmp.length() > max_len_by_attr[i]) max_len_by_attr[i] = tmp.length();
@@ -220,7 +232,7 @@ void Intermediate::select(const string *attrs, int numAttrs) const {
     }
 
     cout << " | " << endl;
-    while (current->next != nullptr) {
+    while (current != nullptr) {
         for (int i = 0; i < numAttrs; ++i) {
             string tmp = current->entry[attr_idx[i]];
             string tmp2 = _left_pad_until(tmp, max_len_by_attr[i]);

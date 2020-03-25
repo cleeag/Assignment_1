@@ -1,7 +1,7 @@
 file(REMOVE_RECURSE
   "CMakeFiles/assignment_1.dir/intermediate.cpp.o"
-  "CMakeFiles/assignment_1.dir/main.cpp.o"
   "CMakeFiles/assignment_1.dir/table.cpp.o"
+  "CMakeFiles/assignment_1.dir/test.cpp.o"
   "assignment_1"
   "assignment_1.pdb"
 )

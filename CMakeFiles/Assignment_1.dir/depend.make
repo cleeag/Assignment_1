@@ -5,11 +5,11 @@ CMakeFiles/assignment_1.dir/intermediate.cpp.o: intermediate.cpp
 CMakeFiles/assignment_1.dir/intermediate.cpp.o: intermediate.h
 CMakeFiles/assignment_1.dir/intermediate.cpp.o: table.h
 
-CMakeFiles/assignment_1.dir/main.cpp.o: intermediate.h
-CMakeFiles/assignment_1.dir/main.cpp.o: main.cpp
-CMakeFiles/assignment_1.dir/main.cpp.o: table.h
-
 CMakeFiles/assignment_1.dir/table.cpp.o: intermediate.h
 CMakeFiles/assignment_1.dir/table.cpp.o: table.cpp
 CMakeFiles/assignment_1.dir/table.cpp.o: table.h
+
+CMakeFiles/assignment_1.dir/test.cpp.o: intermediate.h
+CMakeFiles/assignment_1.dir/test.cpp.o: table.h
+CMakeFiles/assignment_1.dir/test.cpp.o: test.cpp
 

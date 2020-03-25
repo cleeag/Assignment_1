@@ -284,10 +284,8 @@ _test_intermediate()
 	
 	string selector2[] = {"Department", "Course Name", "Credits"};
 	courses.query().where("Course Name", CONTAINS, "Analysis").orderBy("Department", DESCENDING).orderBy("Credits", ASCENDING).select(selector2, 3);
-    return;
 
 	cout << endl;
-    return;
 
 	cout << "Query 4. Updates the Credit of the courses that have \"Programming\" in their Course Name to 5" << endl;
 	

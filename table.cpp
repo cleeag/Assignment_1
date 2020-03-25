@@ -117,7 +117,8 @@ bool Table::addEntry(const string *entry, int index) {
     string **new_entries = new string *[numEntries + 1];
     for (int i = 0; i < numEntries + 1; ++i) new_entries[i] = new string[numAttrs];
 
-    if (index == -1) {
+    if (numEntries == 0) for (int i = 0; i < numAttrs; ++i) new_entries[0][i] = entry[i];
+    else if (index == -1 or index == numEntries) {
         for (int i = 0; i < numAttrs; ++i) {
             new_entries[numEntries][i] = entry[i];
         }

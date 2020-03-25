@@ -10,13 +10,17 @@
 string
 -
 
-/Users/chin/CLionProjects/Assignment_1/table.cpp
+/Users/chin/CLionProjects/Assignment_1/main.cpp
 iostream
 -
 fstream
 -
+string
+-
 table.h
 /Users/chin/CLionProjects/Assignment_1/table.h
+intermediate.h
+/Users/chin/CLionProjects/Assignment_1/intermediate.h
 
 /Users/chin/CLionProjects/Assignment_1/table.h
 string

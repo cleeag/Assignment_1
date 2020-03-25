@@ -76,13 +76,13 @@
 		<Unit filename="/Users/chin/CLionProjects/Assignment_1/intermediate.h">
 			<Option target="assignment_1"/>
 		</Unit>
+		<Unit filename="/Users/chin/CLionProjects/Assignment_1/main.cpp">
+			<Option target="assignment_1"/>
+		</Unit>
 		<Unit filename="/Users/chin/CLionProjects/Assignment_1/table.cpp">
 			<Option target="assignment_1"/>
 		</Unit>
 		<Unit filename="/Users/chin/CLionProjects/Assignment_1/table.h">
-			<Option target="assignment_1"/>
-		</Unit>
-		<Unit filename="/Users/chin/CLionProjects/Assignment_1/test.cpp">
 			<Option target="assignment_1"/>
 		</Unit>
 		<Unit filename="/Users/chin/CLionProjects/Assignment_1/CMakeLists.txt">

@@ -303,7 +303,7 @@ _test_intermediate()
 int
 main()
 {
-//	_test_table();
+	_test_table();
 
 	_test_intermediate();
 

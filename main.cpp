@@ -58,7 +58,6 @@ _test_table()
 
 	Table *c = new Table {*b};
 	Table *d = new Table {*b};
-    b->print();
 	cout << "b->append(c)                   Should be true:  " << boolalpha << b->append(*c) << endl;
 
 	cout << endl;
@@ -72,18 +71,14 @@ _test_table()
 	cout << "d->append(b)                   Should be false: " << boolalpha << d->append(*b) << endl;
 
 	cout << endl;
-
 	cout << "Remove all entries from d" << endl;
 	cout << "d->deleteEntry(1)              Should be true:  " << boolalpha << d->deleteEntry(1) << endl;
 	cout << "d->deleteEntry(0)              Should be true:  " << boolalpha << d->deleteEntry(0) << endl;
 
 	cout << endl;
-    c->print();
 	cout << "Remove all attributes from c" << endl;
 	cout << "c->deleteAttribute(1)          Should be true:  " << boolalpha << c->deleteAttribute(1) << endl;
-    c->print();
 	cout << "c->deleteAttribute(0)          Should be true:  " << boolalpha << c->deleteAttribute(0) << endl;
-    c->print();
 
 	// Note: a, b, c and d are deleted here
 	delete a;
@@ -105,6 +100,7 @@ _test_intermediate()
 	courses.addAttribute("Course Code");
 	courses.addAttribute("Course Name");
 	courses.addAttribute("Credits");
+	courses.print();
 
 	Table cse {courses};
 	Table math {courses};
@@ -192,7 +188,7 @@ _test_intermediate()
 	cse.addEntry(comp1021);
 	cse.addEntry(comp1022p);
 	cse.addEntry(comp1022q);
-	cse.addEntry(comp1029c);
+    cse.addEntry(comp1029c);
 	cse.addEntry(comp1029j);
 	cse.addEntry(comp1029p);
 	cse.addEntry(comp1029v);
@@ -228,7 +224,8 @@ _test_intermediate()
 	cse.addEntry(comp4632);
 	cse.addEntry(comp4641);
 
-	math.addEntry(math1012);
+
+    math.addEntry(math1012);
 	math.addEntry(math1013);
 	math.addEntry(math1014);
 	math.addEntry(math1024);
@@ -282,13 +279,15 @@ _test_intermediate()
 
 	cout << endl;
 
-	cout << "Query 3. rints the Department, Course Name and Credits of the courses that have \"Analysis\" in their Course Name " << endl;
+	cout << "Query 3. prints the Department, Course Name and Credits of the courses that have \"Analysis\" in their Course Name " << endl;
 	cout << "ordered by increasing Credits then decreasing Department" << endl;
 	
 	string selector2[] = {"Department", "Course Name", "Credits"};
 	courses.query().where("Course Name", CONTAINS, "Analysis").orderBy("Department", DESCENDING).orderBy("Credits", ASCENDING).select(selector2, 3);
+    return;
 
 	cout << endl;
+    return;
 
 	cout << "Query 4. Updates the Credit of the courses that have \"Programming\" in their Course Name to 5" << endl;
 	
@@ -306,7 +305,7 @@ _test_intermediate()
 int
 main()
 {
-	_test_table();
+//	_test_table();
 
 	_test_intermediate();
 

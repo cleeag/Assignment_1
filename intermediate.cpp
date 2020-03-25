@@ -5,6 +5,17 @@
 
 using namespace std;
 
+void print_list(EntryNode *p) {
+    cout << endl;
+    cout << "start printing..." << endl;
+    while (p != nullptr) {
+        cout << p->entry[2] << endl;
+        p = p->next;
+    }
+    cout << "done printing..." << endl;
+    cout << endl;
+}
+
 
 // TODO
 Intermediate::Intermediate(const Table &table) {
@@ -33,7 +44,6 @@ Intermediate::~Intermediate() {
     while (current != nullptr) {
         delete current;
         if (next_node == nullptr) {
-            current = nullptr;
             break;
         }
         current = next_node;
@@ -55,22 +65,28 @@ Intermediate &Intermediate::where(const string &attr, enum compare mode, const s
     else {
         EntryNode *current = head;
         while (current != nullptr) {
-            if (mode == EQ) {
-                if (current->entry[att_index] != value) {
+            if ((mode == EQ and current->entry[att_index] != value) or
+                (mode == CONTAINS and current->entry[att_index].find(value) == -1)) {
+                if (current->prev == nullptr) {
+                    head = current->next;
+                    head->prev = nullptr;
+                    delete current;
+                    current = head;
+                } else if (current->next == nullptr) {
+                    tail = current->prev;
+                    tail->next = nullptr;
+                    delete current;
+                    current = nullptr;
+                } else {
                     current->prev->next = current->next;
+                    current->next->prev = current->prev;
                     EntryNode *tmp = current;
                     current = current->next;
                     delete tmp;
                 }
-            } else {
-                if (!current->entry[att_index].find(value)) {
-                    current->prev->next = current->next;
-                    EntryNode *tmp = current;
-                    current = current->next;
-                    delete tmp;
-                }
-            }
+            } else current = current->next;
         }
+        print_list(head);
         return *this;
     }
 
@@ -139,6 +155,7 @@ Intermediate &Intermediate::limit(unsigned int limit) {
         EntryNode *tmp = current->prev;
         delete current;
         current = tmp;
+        current->next = nullptr;
         left_length -= 1;
     }
     return *this;
@@ -190,8 +207,8 @@ void Intermediate::select(const string *attrs, int numAttrs) const {
         for (int i = 0; i < numAttrs; ++i) {
             string tmp = current->entry[attr_idx[i]];
             if (tmp.length() > max_len_by_attr[i]) max_len_by_attr[i] = tmp.length();
-            current = current->next;
         }
+        current = current->next;
     }
 
 //    print it out
@@ -201,6 +218,7 @@ void Intermediate::select(const string *attrs, int numAttrs) const {
         string tmp2 = _left_pad_until(tmp, max_len_by_attr[i]);
         cout << " | " << tmp2;
     }
+
     cout << " | " << endl;
     while (current->next != nullptr) {
         for (int i = 0; i < numAttrs; ++i) {
@@ -208,6 +226,7 @@ void Intermediate::select(const string *attrs, int numAttrs) const {
             string tmp2 = _left_pad_until(tmp, max_len_by_attr[i]);
             cout << " | " << tmp2;
         }
+        current = current->next;
         cout << " | " << endl;
     }
 

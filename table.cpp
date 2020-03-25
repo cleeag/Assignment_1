@@ -86,7 +86,7 @@ bool Table::addAttribute(const string &attr, int index, const string &default_va
         for (int i = 0; i < numEntries; ++i) new_entries[i] = new string[numAttrs + 1];
         for (int row = 0; row < numEntries; ++row) {
             if (index == -1) new_entries[row][numAttrs] = default_value;
-            for (int i = 0, j = 0; i < numAttrs + 1;) {
+            for (int i = 0, j = 0; j < numAttrs;) {
                 if (i == index) {
                     new_entries[row][i] = default_value;
                     ++i;
@@ -152,12 +152,15 @@ bool Table::deleteAttribute(int index) {
 
 //    delete everything if only one attribute
     if (numAttrs == 1) {
-        cout << "deleting" << endl;
         delete[] attrs;
+        attrs = nullptr;
         for (int i = 0; i < numEntries; ++i) {
             delete[] entries[i];
         }
         delete[] entries;
+        entries = nullptr;
+        numAttrs = 0;
+        numEntries = 0;
         return true;
     }
 
@@ -209,6 +212,14 @@ bool Table::deleteEntry(int index) {
 
     string **new_entries = new string *[numEntries - 1];
     for (int i = 0; i < numEntries - 1; ++i) new_entries[i] = new string[numAttrs];
+
+    if (numEntries == 1){
+        delete[] entries[0];
+        delete[] entries;
+        entries = nullptr;
+        numEntries = 0;
+        return true;
+    }
 
     for (int row_new = 0, row_old = 0; row_new < numEntries - 1;) {
         if (row_old == index) {

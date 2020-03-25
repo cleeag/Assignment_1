@@ -155,7 +155,7 @@ Intermediate &Intermediate::orderBy(const string &attr, enum order order) {
 Intermediate &Intermediate::limit(unsigned int limit) {
     int length = 0;
     EntryNode *len_counter = head;
-    while (len_counter->next != nullptr) {
+    while (len_counter != nullptr) {
         len_counter = len_counter->next;
         length += 1;
     }
@@ -228,18 +228,20 @@ void Intermediate::select(const string *attrs, int numAttrs) const {
     for (int i = 0; i < numAttrs; ++i) {
         string tmp = this->attrs[attr_idx[i]];
         string tmp2 = _left_pad_until(tmp, max_len_by_attr[i]);
-        cout << " | " << tmp2;
+        cout << tmp2;
+        if (i < numAttrs - 1) cout << " | ";
     }
-
-    cout << " | " << endl;
+    cout << endl;
+//    cout << " | " << endl;
     while (current != nullptr) {
         for (int i = 0; i < numAttrs; ++i) {
             string tmp = current->entry[attr_idx[i]];
             string tmp2 = _left_pad_until(tmp, max_len_by_attr[i]);
-            cout << " | " << tmp2;
+            cout << tmp2;
+            if (i < numAttrs - 1) cout << " | ";
         }
         current = current->next;
-        cout << " | " << endl;
+        cout << endl;
     }
 
 }

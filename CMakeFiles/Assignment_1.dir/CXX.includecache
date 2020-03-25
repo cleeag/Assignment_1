@@ -6,21 +6,19 @@
 
 #IncludeRegexTransform: 
 
-/Users/chin/CLionProjects/Assignment_1/intermediate.h
+/Users/chin/CLionProjects/Assignment_1/intermediate.cpp
 string
 -
-
-/Users/chin/CLionProjects/Assignment_1/main.cpp
 iostream
--
-fstream
--
-string
--
-table.h
-/Users/chin/CLionProjects/Assignment_1/table.h
+/Users/chin/CLionProjects/Assignment_1/iostream
 intermediate.h
 /Users/chin/CLionProjects/Assignment_1/intermediate.h
+table.h
+/Users/chin/CLionProjects/Assignment_1/table.h
+
+/Users/chin/CLionProjects/Assignment_1/intermediate.h
+string
+-
 
 /Users/chin/CLionProjects/Assignment_1/table.h
 string

@@ -1,0 +1,160 @@
+Test Table
+
+b->addAttribute("A")           Should be true:  true
+b->addAttribute("B", 2)        Should be false: false
+b->addAttribute("B", -2)       Should be false: false
+
+b->addEntry(entry1)            Should be true:  true
+b->addEntry(entry1, 2)         Should be false: false
+b->addEntry(entry1, -2)        Should be false: false
+
+b->addAttribute("C", 1, "C1")  Should be true:  true
+b->addAttribute("B", 1, "B1")  Should be true:  true
+
+b->addEntry(entry4)            Should be true:  true
+b->addEntry(entry2, 1)         Should be true:  true
+b->addEntry(entry3, 2)         Should be true:  true
+
+b->deleteEntry(-1)             Should be false: false
+b->deleteEntry(4)              Should be false: false
+b->deleteEntry(3)              Should be true:  true
+b->deleteEntry(0)              Should be true:  true
+
+b->deleteAttribute(3)          Should be false: false
+b->deleteAttribute(-1)         Should be false: false
+b->deleteAttribute(2)          Should be true:  true
+
+b->append(c)                   Should be true:  true
+
+d->deleteAttribute(1)          Should be true:  true
+d->append(b)                   Should be false: false
+
+d->addAttribute("C")           Should be true:  true
+d->append(b)                   Should be false: false
+
+Remove all entries from d
+d->deleteEntry(1)              Should be true:  true
+d->deleteEntry(0)              Should be true:  true
+
+Remove all attributes from c
+c->deleteAttribute(1)          Should be true:  true
+c->deleteAttribute(0)          Should be true:  true
+
+Test Intermediate
+
+Query 1. Prints all courses
+Department | Course Code |                                            Course Name | Credits
+       CSE |    COMP1001 |            Exploring Multimedia and Internet Computing |       3
+       CSE |    COMP1021 |                       Introduction to Computer Science |       3
+       CSE |   COMP1022P |                    Introduction to Computing with Java |       3
+       CSE |   COMP1022Q |               Introduction to Computing with Excel VBA |       3
+       CSE |   COMP1029C |                          C Programming Bridging Course |       1
+       CSE |   COMP1029J |                       Java Programming Bridging Course |       1
+       CSE |   COMP1029P |                     Python Programming Bridging Course |       1
+       CSE |   COMP1029V |                  Excel VBA Programming Bridging Course |       1
+       CSE |    COMP1942 |                         Exploring and Visualizing Data |       3
+       CSE |    COMP2011 |                                   Programming with C++ |       4
+       CSE |    COMP2012 |        Object-Oriented Programming and Data Structures |       4
+       CSE |    COMP2611 |                                  Computer Organization |       4
+       CSE |    COMP2711 |       Discrete Mathematical Tools for Computer Science |       4
+       CSE |    COMP3021 |                                       Java Programming |       3
+       CSE |    COMP3071 |                         Honors Competitive Programming |       2
+       CSE |    COMP3111 |                                   Software Engineering |       4
+       CSE |    COMP3311 |                            Database Management Systems |       3
+       CSE |    COMP3511 |                                      Operating Systems |       3
+       CSE |    COMP3632 |                            Principles of Cybersecurity |       3
+       CSE |    COMP3711 |                      Design and Analysis of Algorithms |       3
+       CSE |    COMP4021 |                                     Internet Computing |       3
+       CSE |    COMP4111 |                         Software Engineering Practices |       3
+       CSE |    COMP4211 |                                       Machine Learning |       3
+       CSE |    COMP4221 |            Introduction to Natural Language Processing |       3
+       CSE |    COMP4321 |             Search Engines for Web and Enterprise Data |       3
+       CSE |    COMP4331 |                                            Data Mining |       3
+       CSE |    COMP4332 |                         Big Data Mining and Management |       3
+       CSE |    COMP4411 |                                      Computer Graphics |       3
+       CSE |    COMP4431 |                                   Multimedia Computing |       3
+       CSE |    COMP4441 |                                         Computer Music |       3
+       CSE |    COMP4462 |                                     Data Visualization |       3
+       CSE |    COMP4471 |                       Deep Learning in Computer Vision |       3
+       CSE |    COMP4511 |                 System and Kernel Programming in Linux |       3
+       CSE |    COMP4521 |                         Mobile Application Development |       3
+       CSE |    COMP4611 |           Design and Analysis of Computer Architecture |       3
+       CSE |    COMP4621 |                      Computer Communication Networks I |       3
+       CSE |    COMP4631 |                    Computer and Communication Security |       3
+       CSE |    COMP4632 | Practicing Cybersecurity: Attacks and Counter-measures |       3
+       CSE |    COMP4641 |    Social Information Network Analysis and Engineering |       3
+      MATH |    MATH1012 |                                            Calculus IA |       4
+      MATH |    MATH1013 |                                            Calculus IB |       3
+      MATH |    MATH1014 |                                            Calculus II |       3
+      MATH |    MATH1024 |                                     Honors Calculus II |       3
+      MATH |    MATH2011 |                 Introduction to Multivariable Calculus |       3
+      MATH |    MATH2023 |                                 Multivariable Calculus |       4
+      MATH |    MATH2033 |                                  Mathematical Analysis |       4
+      MATH |    MATH2043 |                           Honors Mathematical Analysis |       4
+      MATH |    MATH2111 |                        Matrix Algebra and Applications |       3
+      MATH |    MATH2121 |                                         Linear Algebra |       4
+      MATH |    MATH2343 |                                    Discrete Structures |       4
+      MATH |    MATH2350 |      Applied Linear Algebra and Differential Equations |       3
+      MATH |    MATH2351 |                 Introduction to Differential Equations |       3
+      MATH |    MATH2352 |                                 Differential Equations |       4
+      MATH |    MATH2411 |                                     Applied Statistics |       4
+      MATH |    MATH2421 |                                            Probability |       4
+      MATH |    MATH2431 |                                     Honors Probability |       4
+      MATH |    MATH2741 |                                Geometric Constructions |       3
+      MATH |    MATH3033 |                                          Real Analysis |       4
+      MATH |    MATH3131 |               Honors in Linear and Abstract Algebra II |       4
+      MATH |    MATH3322 |                                     Matrix Computation |       3
+      MATH |    MATH3343 |                                 Combinatorial Analysis |       3
+      MATH |    MATH3423 |                                  Statistical Inference |       3
+      MATH |    MATH3424 |                                    Regression Analysis |       3
+      MATH |    MATH3425 |                                    Stochastic Modeling |       3
+      MATH |    MATH3426 |                                               Sampling |       3
+      MATH |    MATH4023 |                                       Complex Analysis |       3
+      MATH |    MATH4033 |                                  Calculus on Manifolds |       3
+      MATH |    MATH4051 |              Theory of Ordinary Differential Equations |       3
+      MATH |    MATH4052 |                         Partial Differential Equations |       3
+      MATH |    MATH4221 |                 Euclidean and Non-Euclidean Geometries |       3
+      MATH |    MATH4225 |                                               Topology |       3
+      MATH |    MATH4321 |                                            Game Theory |       3
+      MATH |    MATH4425 |                               Introductory Time Series |       3
+      MATH |    MATH4428 |               Bayesian Analysis and Credibility Theory |       3
+      MATH |    MATH4512 |                   Fundamentals of Mathematical Finance |       3
+      MATH |    MATH4513 |           Life Contingencies Models and Insurance Risk |       3
+      MATH |    MATH4514 |               Financial Economics in Actuarial Science |       3
+
+Query 2. Prints the Course Name and Course Code of the first 5 rows
+                                Course Name | Course Code
+Exploring Multimedia and Internet Computing |    COMP1001
+           Introduction to Computer Science |    COMP1021
+        Introduction to Computing with Java |   COMP1022P
+   Introduction to Computing with Excel VBA |   COMP1022Q
+              C Programming Bridging Course |   COMP1029C
+
+Query 3. prints the Department, Course Name and Credits of the courses that have "Analysis" in their Course Name 
+ordered by increasing Credits then decreasing Department
+Department |                                         Course Name | Credits
+      MATH |                              Combinatorial Analysis |       3
+      MATH |                                 Regression Analysis |       3
+      MATH |                                    Complex Analysis |       3
+      MATH |            Bayesian Analysis and Credibility Theory |       3
+       CSE |                   Design and Analysis of Algorithms |       3
+       CSE |        Design and Analysis of Computer Architecture |       3
+       CSE | Social Information Network Analysis and Engineering |       3
+      MATH |                               Mathematical Analysis |       4
+      MATH |                        Honors Mathematical Analysis |       4
+      MATH |                                       Real Analysis |       4
+
+Query 4. Updates the Credit of the courses that have "Programming" in their Course Name to 5
+
+Query 5. Prints the courses with 5 credits
+Department | Course Code |                                     Course Name | Credits
+       CSE |   COMP1029C |                   C Programming Bridging Course |       5
+       CSE |   COMP1029J |                Java Programming Bridging Course |       5
+       CSE |   COMP1029P |              Python Programming Bridging Course |       5
+       CSE |   COMP1029V |           Excel VBA Programming Bridging Course |       5
+       CSE |    COMP2011 |                            Programming with C++ |       5
+       CSE |    COMP2012 | Object-Oriented Programming and Data Structures |       5
+       CSE |    COMP3021 |                                Java Programming |       5
+       CSE |    COMP3071 |                  Honors Competitive Programming |       5
+       CSE |    COMP4511 |          System and Kernel Programming in Linux |       5
+

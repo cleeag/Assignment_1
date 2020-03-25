@@ -211,9 +211,6 @@ bool Table::deleteAttribute(int index) {
 bool Table::deleteEntry(int index) {
     if (index < 0 or index > numEntries - 1) return false;
 
-    string **new_entries = new string *[numEntries - 1];
-    for (int i = 0; i < numEntries - 1; ++i) new_entries[i] = new string[numAttrs];
-
     if (numEntries == 1){
         delete[] entries[0];
         delete[] entries;
@@ -221,6 +218,9 @@ bool Table::deleteEntry(int index) {
         numEntries = 0;
         return true;
     }
+
+    string **new_entries = new string *[numEntries - 1];
+    for (int i = 0; i < numEntries - 1; ++i) new_entries[i] = new string[numAttrs];
 
     for (int row_new = 0, row_old = 0; row_new < numEntries - 1;) {
         if (row_old == index) {

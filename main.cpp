@@ -100,7 +100,6 @@ _test_intermediate()
 	courses.addAttribute("Course Code");
 	courses.addAttribute("Course Name");
 	courses.addAttribute("Credits");
-	courses.print();
 
 	Table cse {courses};
 	Table math {courses};
@@ -279,7 +278,7 @@ _test_intermediate()
 
 	cout << endl;
 
-	cout << "Query 3. prints the Department, Course Name and Credits of the courses that have \"Analysis\" in their Course Name " << endl;
+	cout << "Query 3. rints the Department, Course Name and Credits of the courses that have \"Analysis\" in their Course Name " << endl;
 	cout << "ordered by increasing Credits then decreasing Department" << endl;
 	
 	string selector2[] = {"Department", "Course Name", "Credits"};
